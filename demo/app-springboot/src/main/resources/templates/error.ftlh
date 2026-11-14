@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
+<head>
+    <title>Erreur</title>
+</head>
 <body>
-    <a href="/">Return Home</a>
-	<br><br>
-	<h3>Something went wrong</h3>
-	Status : ${status}<br>
-	Error message :  ${error}<br>
-	<pre>
-	${trace}
-	</pre>
+    <a href="/">Retour à l'accueil</a>
+    <br><br>
+    <h3>Une erreur est survenue</h3>
+    <p>Statut : <strong>${status!''}</strong></p>
+    <p>Message : ${error!''}</p>
+    <#if trace?has_content>
+    <details>
+        <summary>Stack trace (dev)</summary>
+        <pre>${trace}</pre>
+    </details>
+    </#if>
 </body>
-
 </html>

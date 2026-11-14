@@ -1,3 +1,4 @@
+
 server:
   connection-timeout: 5000
   port: 8090
@@ -10,39 +11,37 @@ logging:
     root: INFO
     freemarker: INFO
     org.springframework.ui.freemarker: INFO
-  pattern:
-    console: "%highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
-    
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: TRACE
+    org.springframework.web: DEBUG
 
 planets:
   service:
     url: http://localhost:8091/planets
 
 spring:
-  freemarker.cache: false
+  freemarker:
+    cache: false
 
   security:
     oauth2:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/bzhcamp
+            issuer-uri: http://192.168.163.218:8080/realms/bzhcamp
             user-name-attribute: preferred_username
 
         registration:
           keycloak:
+            provider: keycloak
             client-id: app-springboot
-            # Ne jamais mettre un secret en dur dans le code source !
-            # Utiliser une variable d'environnement : export KEYCLOAK_CLIENT_SECRET=<votre_secret>
             client-secret: ${KEYCLOAK_CLIENT_SECRET}
             authorization-grant-type: authorization_code
-            
-            scope: 
+            scope:
               - openid
+              - profile
+              - email
 
       resourceserver:
         jwt:
-          # Le serveur de ressources DOIT valider les jetons du même realm que le flux de login.
-          # (Auparavant pointé par erreur sur un realm inexistant dans ce POC.)
-          issuer-uri: http://localhost:8080/realms/bzhcamp
-
+          issuer-uri: http://192.168.163.218:8080/realms/bzhcamp

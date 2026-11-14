@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -15,18 +16,19 @@ public class PlanetsService {
 
     /**
      * Injection par constructeur : @Value injecte l'URL depuis application.yml (planets.service.url).
-     * Le WebClient est configuré avec le token OAuth2 (voir SecurityConfig) et le propage
-     * automatiquement à chaque requête vers le service de planètes.
+     * Le WebClient transmet le Bearer token fourni par le contrôleur vers service-planets.
+     * Ce token est l'access token OIDC de l'utilisateur connecté, récupéré depuis OidcUser.
      */
     public PlanetsService(WebClient webClient, @Value("${planets.service.url}") String endpoint) {
         this.webClient = webClient;
         this.endpoint = endpoint;
     }
 
-    public List<String> getPlanets() {
+    public List<String> getPlanets(String bearerToken) {
         return webClient
                 .get()
                 .uri(endpoint)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + bearerToken)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<String>>() {})
                 .block();

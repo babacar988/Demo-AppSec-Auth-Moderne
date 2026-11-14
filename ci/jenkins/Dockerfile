@@ -3,7 +3,11 @@
 # Jenkins LTS 2.462.3 + JDK 17 + Trivy + Maven 3.9 + plugins pré-installés
 # =============================================================================
 
-FROM jenkins/jenkins:2.504-jdk17
+#FROM jenkins/jenkins:2.504-jdk17
+#FROM jenkins/jenkins:2.504.1-lts
+
+FROM jenkins/jenkins:lts-jdk17
+
 
 USER root
 

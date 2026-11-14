@@ -18,7 +18,7 @@
 #   SonarQube → http://localhost:9000   admin / admin
 # =============================================================================
 
-version: "3.9"
+#version: "3.9"
 
 services:
 

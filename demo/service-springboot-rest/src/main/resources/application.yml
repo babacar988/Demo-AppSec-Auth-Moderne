@@ -19,6 +19,6 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/bzhcamp
-          jwk-set-uri: http://localhost:8080/realms/bzhcamp/protocol/openid-connect/certs
+          issuer-uri: http://192.168.163.218:8080/realms/bzhcamp
+          jwk-set-uri: http://192.168.163.218:8080/realms/bzhcamp/protocol/openid-connect/certs
 
